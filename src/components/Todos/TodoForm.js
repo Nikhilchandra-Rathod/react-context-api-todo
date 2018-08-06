@@ -54,7 +54,7 @@ class TodoForm extends Component {
 const TodoFormConnect = props => {
   return (
     <TodoConsumer>
-      {({ state, actions }) => <TodoForm onNewTodo={actions.addNewTodo} {...props} />}
+      {({ state, actions }) => <TodoForm onNewTodo={actions.onNewTodo} {...props} />}
     </TodoConsumer>
   );
 };

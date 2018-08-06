@@ -27,13 +27,20 @@ export class TodoProvider extends Component {
     });
   };
 
+  handleRemoveTodo = id => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== id)
+    }));
+  };
+
   render() {
     return (
       <TodoContext.Provider
         value={{
           state: this.state,
           actions: {
-            addNewTodo: this.handleNewTodo
+            onNewTodo: this.handleNewTodo,
+            onRemoveTodo: this.handleRemoveTodo
           }
         }}
         {...this.props}
