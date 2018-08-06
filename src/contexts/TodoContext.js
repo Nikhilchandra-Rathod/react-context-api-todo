@@ -13,8 +13,18 @@ export class TodoProvider extends Component {
     };
   }
 
-  handleNewTodo = newTodo => {
-    console.log(newTodo);
+  handleNewTodo = todoText => {
+    this.setState(prevState => {
+      const newTodo = {
+        id: prevState.todos.length + 1,
+        title: todoText,
+        isDone: false
+      };
+
+      return {
+        todos: [...prevState.todos, newTodo]
+      };
+    });
   };
 
   render() {

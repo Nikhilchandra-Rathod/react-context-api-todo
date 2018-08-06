@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { TodoProvider } from '../contexts/TodoContext';
+import Navbar from './common/Navbar';
+import TodoForm from './Todos/TodoForm';
+import Todos from './Todos/Todos';
 
 class App extends Component {
   render() {
     return (
       <TodoProvider>
-        <div className="App">
-          <h1>React Context Api Todos</h1>
+        <Navbar />
+        <div className="container">
+          <TodoForm />
+          <Todos />
         </div>
       </TodoProvider>
     );
