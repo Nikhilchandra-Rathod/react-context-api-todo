@@ -1,16 +1,26 @@
 import React from 'react';
+import { Layout, Menu, Badge } from 'antd';
 import { TodoConsumer } from '../../contexts/TodoContext';
+
+const { Header } = Layout;
 
 export default () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <TodoConsumer>
-        {({ state, actions }) => (
-          <a className="navbar-brand" href="/">
-            Todos <span className="badge badge-primary badge-pill">{state.todos.length}</span>
-          </a>
+        {({ state }) => (
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={[]}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">
+              Todos <Badge count={state.todos.length} />
+            </Menu.Item>
+          </Menu>
         )}
       </TodoConsumer>
-    </nav>
+    </Header>
   );
 };

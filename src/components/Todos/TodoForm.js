@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Input, Form, Icon, Button, Row, Col } from 'antd';
 import { TodoConsumer } from '../../contexts/TodoContext';
+
+const FormItem = Form.Item;
 
 class TodoForm extends Component {
   constructor(props) {
@@ -26,27 +29,32 @@ class TodoForm extends Component {
   render() {
     const { todoText } = this.state;
     return (
-      <div className="row">
-        <div className="col">
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter Todo..."
-                aria-label="Enter todo"
-                value={todoText}
-                onChange={this.handleChangeText}
-              />
-              <div className="input-group-append">
-                <button className="btn btn-outline-secondary" type="button">
-                  Add
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Row style={{ marginTop: 30 }}>
+        <Col xs={24} sm={24} md={{ span: 12, offset: 6 }}>
+          <Form onSubmit={this.handleSubmit}>
+            <Row gutter={16}>
+              <Col xs={18} sm={18} md={20}>
+                <FormItem>
+                  <Input
+                    type="text"
+                    prefix={<Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="Enter todo.."
+                    value={todoText}
+                    onChange={this.handleChangeText}
+                  />
+                </FormItem>
+              </Col>
+              <Col xs={6} sm={6} md={4}>
+                <FormItem>
+                  <Button type="primary" block>
+                    Add
+                  </Button>
+                </FormItem>
+              </Col>
+            </Row>
+          </Form>
+        </Col>
+      </Row>
     );
   }
 }
@@ -54,7 +62,7 @@ class TodoForm extends Component {
 const TodoFormConnect = props => {
   return (
     <TodoConsumer>
-      {({ state, actions }) => <TodoForm onNewTodo={actions.onNewTodo} {...props} />}
+      {({ actions }) => <TodoForm onNewTodo={actions.onNewTodo} {...props} />}
     </TodoConsumer>
   );
 };

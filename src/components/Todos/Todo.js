@@ -1,21 +1,25 @@
 import React from 'react';
+import { List, Popconfirm } from 'antd';
 import { TodoConsumer } from '../../contexts/TodoContext';
 
 const Todo = ({ todo, onRemoveTodo }) => {
   return (
-    <li className="list-group-item d-flex justify-content-between align-items-center">
-      {todo.title}
-      <button className="btn btn-danger btn-sm" onClick={() => onRemoveTodo(todo.id)}>
-        Remove
-      </button>
-    </li>
+    <List.Item
+      actions={[
+        <Popconfirm title="Are you sure delete this todo?" onConfirm={() => onRemoveTodo(todo.id)}>
+          <a>remove</a>
+        </Popconfirm>
+      ]}
+    >
+      <div>{todo.title}</div>
+    </List.Item>
   );
 };
 
 const TodoConnect = props => {
   return (
     <TodoConsumer>
-      {({ state, actions }) => <Todo onRemoveTodo={actions.onRemoveTodo} {...props} />}
+      {({ actions }) => <Todo onRemoveTodo={actions.onRemoveTodo} {...props} />}
     </TodoConsumer>
   );
 };
