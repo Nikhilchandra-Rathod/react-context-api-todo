@@ -1,8 +1,8 @@
 import React from 'react';
-import { List, Popconfirm } from 'antd';
+import { List, Popconfirm, Checkbox } from 'antd';
 import { TodoConsumer } from '../../contexts/TodoContext';
 
-const Todo = ({ todo, onRemoveTodo }) => {
+const Todo = ({ todo, onRemoveTodo, onToggleTodo }) => {
   return (
     <List.Item
       actions={[
@@ -11,7 +11,9 @@ const Todo = ({ todo, onRemoveTodo }) => {
         </Popconfirm>
       ]}
     >
-      <div>{todo.title}</div>
+      <Checkbox checked={todo.isDone} onChange={e => onToggleTodo(todo.id, e.target.checked)}>
+        {todo.title}
+      </Checkbox>
     </List.Item>
   );
 };
@@ -19,7 +21,9 @@ const Todo = ({ todo, onRemoveTodo }) => {
 const TodoConnect = props => {
   return (
     <TodoConsumer>
-      {({ actions }) => <Todo onRemoveTodo={actions.onRemoveTodo} {...props} />}
+      {({ actions }) => (
+        <Todo onToggleTodo={actions.onToggleTodo} onRemoveTodo={actions.onRemoveTodo} {...props} />
+      )}
     </TodoConsumer>
   );
 };

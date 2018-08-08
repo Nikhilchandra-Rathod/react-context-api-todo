@@ -8,7 +8,7 @@ export default () => {
   return (
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <TodoConsumer>
-        {({ state }) => (
+        {({ actions }) => (
           <Menu
             theme="dark"
             mode="horizontal"
@@ -16,7 +16,7 @@ export default () => {
             style={{ lineHeight: '64px' }}
           >
             <Menu.Item key="1">
-              Todos <Badge count={state.todos.length} />
+              Todos <Badge count={actions.getUndoneTodos().length} />
             </Menu.Item>
           </Menu>
         )}

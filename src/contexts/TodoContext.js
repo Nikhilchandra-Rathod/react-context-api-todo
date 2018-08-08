@@ -13,6 +13,10 @@ export class TodoProvider extends Component {
     };
   }
 
+  getUndoneTodos = () => {
+    return this.state.todos.filter(t => !t.isDone);
+  };
+
   handleNewTodo = todoText => {
     this.setState(prevState => {
       const newTodo = {
@@ -33,6 +37,19 @@ export class TodoProvider extends Component {
     }));
   };
 
+  handleToggleTodo = (id, done) => {
+    this.setState(prevState => {
+      const todos = [...prevState.todos];
+      const todo = todos.find(t => t.id === id);
+      const index = todos.indexOf(todo);
+      todo.isDone = done;
+
+      return {
+        todos: [...todos.slice(0, index), { ...todo }, ...todos.slice(index + 1)]
+      };
+    });
+  };
+
   render() {
     return (
       <TodoContext.Provider
@@ -40,7 +57,9 @@ export class TodoProvider extends Component {
           state: this.state,
           actions: {
             onNewTodo: this.handleNewTodo,
-            onRemoveTodo: this.handleRemoveTodo
+            onRemoveTodo: this.handleRemoveTodo,
+            onToggleTodo: this.handleToggleTodo,
+            getUndoneTodos: this.getUndoneTodos
           }
         }}
         {...this.props}

@@ -46,7 +46,7 @@ class TodoForm extends Component {
               </Col>
               <Col xs={6} sm={6} md={4}>
                 <FormItem>
-                  <Button type="primary" block>
+                  <Button htmlType="submit" type="primary" block>
                     Add
                   </Button>
                 </FormItem>
